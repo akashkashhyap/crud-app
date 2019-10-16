@@ -8,12 +8,17 @@ import { CreateEmployeesComponent } from "./employees/create-employees.component
 import { EmployeeService } from "./employees/employee.service";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { DisplayEmployeeComponent } from "./employees/display-employee.component";
+import { CreateEmployeeCanDeactivateGuardService } from "./employees/create-employee-can-deactivate.service";
+import { EmployeeDetailsComponent } from './employees/employee-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListEmployeesComponent,
-    CreateEmployeesComponent
+    CreateEmployeesComponent,
+    DisplayEmployeeComponent,
+    EmployeeDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [EmployeeService],
+  providers: [EmployeeService, CreateEmployeeCanDeactivateGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

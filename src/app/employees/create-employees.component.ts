@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Department } from "./../model/department.model";
 import { EmployeeService } from "./employee.service";
@@ -11,6 +11,8 @@ import { Employee } from "./../model/employee.model";
   styleUrls: ["./create-employees.component.css"]
 })
 export class CreateEmployeesComponent implements OnInit {
+  @ViewChild("employeeForm", { static: false })
+  public createEmployeeForm: NgForm;
   employee: Employee = {
     id: null,
     name: null,
@@ -29,6 +31,7 @@ export class CreateEmployeesComponent implements OnInit {
     { id: 3, name: "IT" },
     { id: 4, name: "Payroll" }
   ];
+
   constructor(
     private _employeeService: EmployeeService,
     private _router: Router
