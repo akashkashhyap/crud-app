@@ -1,16 +1,6 @@
-<!-- <h1 *ngIf="dataFromChild">
-  {{ dataFromChild }}
-</h1> -->
-
-<div
-  (click)="onClick(employee)"
-  class="pointerCursor"
-  *ngFor="let employee of employees"
->
-  <app-display-employee [employee]="employee"></app-display-employee>
+<div class="form-group">
+  <input type="text" class="form-control" placeholder="Search By Name" [(ngModel)]="searchTerm" />
 </div>
-<!-- <button (click)="nextEmployee()" class="btn btn-primary">
-  View next Employee
-</button>
-<hr />
-<app-display-employee [employee]="employeeToDisplay"></app-display-employee> -->
+<div *ngFor="let employee of filteredEmployees">
+   <app-display-employee [employee]="employee"> </app-display-employee> 
+</div>

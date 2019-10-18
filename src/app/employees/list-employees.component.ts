@@ -10,9 +10,17 @@ import { Router } from "@angular/router";
 })
 export class ListEmployeesComponent implements OnInit {
   employees: Employee[];
-  dataFromChild: string;
-  // employeeToDisplay: Employee;
-  // private arrayIndex = 1;
+  filteredEmployees:Employee[];
+  private _searchTerm:string;
+
+  get searchTerm():string{
+    return this._searchTerm;
+  }
+
+  set searchTerm(value:string){
+    this._searchTerm = value;
+    this.filteredEmployees = this.filterEmployees(value);
+  }
 
   constructor(
     private _employeeService: EmployeeService,
@@ -21,23 +29,12 @@ export class ListEmployeesComponent implements OnInit {
 
   ngOnInit() {
     this.employees = this._employeeService.getEmployees();
-    //  this.employeeToDisplay = this.employees[0];
+    this.filteredEmployees = this.employees;
   }
 
-  // nextEmployee(): void {
-  //   if (this.arrayIndex <= this.employees.length) {
-  //     this.employeeToDisplay = this.employees[this.arrayIndex];
-  //     this.arrayIndex++;
-  //   } else {
-  //     this.employeeToDisplay = this.employees[0];
-  //     this.arrayIndex = 1;
-  //   }
-  // }
-
-  handleNotify(eventData: string) {
-    this.dataFromChild = eventData;
+  filterEmployees(searchString: string){
+    return this.employees.filter(employee =>
+      employee.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
   }
-  onClick(employeeId) {
-    this._router.navigate(["/employee", employeeId.id]);
-  }
+  
 }

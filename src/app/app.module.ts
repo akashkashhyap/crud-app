@@ -11,23 +11,27 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DisplayEmployeeComponent } from "./employees/display-employee.component";
 import { CreateEmployeeCanDeactivateGuardService } from "./employees/create-employee-can-deactivate.service";
 import { EmployeeDetailsComponent } from './employees/employee-details.component';
-
+import {EmployeeFilterPipe } from './employees/employee-filter.pipe';
+import { PageNotFoundComponent } from './page-not-found.component';
+import { EmployeeDetailsGuardService } from './employees/employee-details-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
     ListEmployeesComponent,
     CreateEmployeesComponent,
     DisplayEmployeeComponent,
-    EmployeeDetailsComponent
+    EmployeeDetailsComponent,
+    EmployeeFilterPipe,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
-  providers: [EmployeeService, CreateEmployeeCanDeactivateGuardService],
+  providers: [EmployeeService, CreateEmployeeCanDeactivateGuardService,EmployeeDetailsGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

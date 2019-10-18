@@ -31,7 +31,6 @@ export class EmployeeDetailsComponent implements OnInit {
     } else {
       this._id = 1;
     }
-
     this._router.navigate(["/employee", this._id]);
   }
 }

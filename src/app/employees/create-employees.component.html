@@ -1,7 +1,7 @@
 <form #employeeForm="ngForm" (ngSubmit)="saveEmployee()">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">Create Employee</h3>
+      <h3 class="panel-title">{{panelTitle}}</h3>
     </div>
     <div class="panel-body">
       <div class="form-group">
@@ -44,7 +44,7 @@
             <input
               type="radio"
               name="contactPreference"
-              value="email"
+              value="Email"
               [(ngModel)]="employee.contactPreference"
             />
             Email
@@ -53,7 +53,7 @@
             <input
               type="radio"
               name="contactPreference"
-              value="phone"
+              value="Phone"
               [(ngModel)]="employee.contactPreference"
             />
             Phone
@@ -68,7 +68,7 @@
             <input
               type="radio"
               name="gender"
-              value="male"
+              value="Male"
               [(ngModel)]="employee.gender"
             />
             Male
@@ -77,7 +77,7 @@
             <input
               type="radio"
               name="gender"
-              value="female"
+              value="Female"
               [(ngModel)]="employee.gender"
             />
             Female

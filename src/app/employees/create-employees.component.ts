@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Department } from "./../model/department.model";
 import { EmployeeService } from "./employee.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Employee } from "./../model/employee.model";
 
 @Component({
@@ -13,6 +13,7 @@ import { Employee } from "./../model/employee.model";
 export class CreateEmployeesComponent implements OnInit {
   @ViewChild("employeeForm", { static: false })
   public createEmployeeForm: NgForm;
+  panelTitle:string;
   employee: Employee = {
     id: null,
     name: null,
@@ -34,13 +35,42 @@ export class CreateEmployeesComponent implements OnInit {
 
   constructor(
     private _employeeService: EmployeeService,
-    private _router: Router
+    private _router: Router,
+    private _route: ActivatedRoute
   ) {}
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this._route.paramMap.subscribe(parameterMap=>{
+      const id = +parameterMap.get('id');
+      this.getEmployee(id);
+    })
+  }
+   
+  private getEmployee(id:number){
+      if(id===0){
+        this.employee = {
+          id: null,
+          name: null,
+          gender: null,
+          email: "",
+          phoneNumber: null,
+          contactPreference: null,
+          dateOfBirth: null,
+          department: "select",
+          isActive: null,
+          photoPath: null
+        };
+        this.panelTitle = 'Create Employee';
+        this.createEmployeeForm.reset();
+      } else{
+        this.panelTitle = 'Edit Employee';
+        this.employee = Object.assign({},this._employeeService.getEmployee(id));
+      }
+  }
   saveEmployee(): void {
-    this._employeeService.save(this.employee);
+    const newEmployee: Employee = Object.assign({}, this.employee)
+    this._employeeService.save(newEmployee);
+    this.createEmployeeForm.reset();
     this._router.navigate(["list"]);
   }
 }
