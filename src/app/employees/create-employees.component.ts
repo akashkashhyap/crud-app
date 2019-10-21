@@ -46,7 +46,7 @@ export class CreateEmployeesComponent implements OnInit {
     });
   }
 
-  private getEmployee(id: number) {
+  private async getEmployee(id: number) {
     if (id === 0) {
       this.employee = {
         id: null,
@@ -64,7 +64,8 @@ export class CreateEmployeesComponent implements OnInit {
       this.createEmployeeForm.reset();
     } else {
       this.panelTitle = "Edit Employee";
-      this.employee = Object.assign({}, this._employeeService.getEmployee(id));
+      let r = await this._employeeService.getEmployee(id).toPromise();
+      this.employee = Object.assign({}, r.data);
     }
   }
   saveEmployee(): void {

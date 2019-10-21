@@ -19,9 +19,14 @@ export class EmployeeDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._route.paramMap.subscribe(params => {
-      this._id = +params.get("id");
-      this.employee = this._employeeService.getEmployee(this._id);
+    this._route.paramMap.subscribe(async params => {
+      // this._id = +params.get("id");
+      let email = params.get("id");
+      // debugger;
+      let l: any = await this._employeeService.getEmployee(email).toPromise();
+      this.employee = l.data;
+
+      // console.log(l);
     });
   }
 

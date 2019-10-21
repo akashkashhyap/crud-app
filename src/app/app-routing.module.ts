@@ -15,7 +15,7 @@ const routes: Routes = [
     canDeactivate: [CreateEmployeeCanDeactivateGuardService]
   },
   { path: "employee/:id", component: EmployeeDetailsComponent,
-    canActivate: [EmployeeDetailsGuardService] 
+    // canActivate: [EmployeeDetailsGuardService] 
   },
   { path: "", redirectTo: "/list", pathMatch: "full" },
   { path: "notfound", component: PageNotFoundComponent }

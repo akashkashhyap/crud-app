@@ -45,12 +45,15 @@ export class EmployeeService {
     }
   ];
 
-  baseUrl = "http://localhost:3000/employees";
-  getEmployees(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(this.baseUrl);
+  // baseUrl = "http://localhost:3000/employees";
+  baseUrl = 'https://nodeapis101.herokuapp.com/api/v1';
+  
+  
+  getEmployees(): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}/crudapp/users`);
   }
-  getEmployee(id: number): Employee {
-    return this.listEmployees.find(e => e.id === id);
+  getEmployee(_id: any): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}/crudapp/user/${_id}`);
   }
   save(employee: Employee): Observable<Employee> {
     if (employee.id == null) {

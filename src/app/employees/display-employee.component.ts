@@ -24,7 +24,8 @@ export class DisplayEmployeeComponent implements OnInit {
   }
 
   viewEmployee() {
-    this._router.navigate(["/employee", this.employee.id]);
+    // debugger;
+    this._router.navigate(["/employee", this.employee.email]);
   }
   editEmployee() {
     this._router.navigate(["/edit", this.employee.id]);

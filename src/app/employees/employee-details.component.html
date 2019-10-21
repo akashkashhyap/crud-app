@@ -1,60 +1,60 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">{{ employee.name }}</h3>
+    <h3 class="panel-title">{{ employee?.name }}</h3>
   </div>
   <div class="panel-body">
     <div class="col-xs-10">
       <div class="row align-center">
         <div class="col-xs-4">
-          <img class="imageClass img-responsive" [src]="employee.photoPath" />
+          <img class="imageClass img-responsive" [src]="employee?.photoPath || 'assets/images/mark.png'" />
         </div>
         <div class="col-xs-8">
           <div class="row">
             <div class="col-xs-6">Gender</div>
-            <div class="col-xs-6">: {{ employee.gender }}</div>
+            <div class="col-xs-6">: {{ employee?.gender }}</div>
           </div>
           <div class="row">
             <div class="col-xs-6">
               Date of Birth
             </div>
-            <div class="col-xs-6">: {{ employee.dateOfBirth | date }}</div>
+            <div class="col-xs-6">: {{ employee?.dateOfBirth | date }}</div>
           </div>
           <div class="row">
             <div class="col-xs-6">
               Contact Preference
             </div>
-            <div class="col-xs-6">: {{ employee.contactPreference }}</div>
+            <div class="col-xs-6">: {{ employee?.contactPreference }}</div>
           </div>
           <div class="row">
             <div class="col-xs-6">
               Phone
             </div>
-            <div class="col-xs-6">: {{ employee.phoneNumber }}</div>
+            <div class="col-xs-6">: {{ employee?.phoneNumber }}</div>
           </div>
           <div class="row">
             <div class="col-xs-6">
               Email
             </div>
-            <div class="col-xs-6">: {{ employee.email }}</div>
+            <div class="col-xs-6">: {{ employee?.email }}</div>
           </div>
           <div class="row">
             <div class="col-xs-6">
               Department
             </div>
-            <div class="col-xs-6">: {{ employee.department }}</div>
+            <div class="col-xs-6">: {{ employee?.department }}</div>
           </div>
           <div class="row">
             <div class="col-xs-6">
               Is Active
             </div>
-            <div class="col-xs-6">: {{ employee.isActive }}</div>
+            <div class="col-xs-6">: {{ employee?.isActive }}</div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="panel-footer">
-    <a class="btn btn-primary" [routerLink]="['/list',{id:employee.id}]">
+    <a class="btn btn-primary" [routerLink]="['/list',{id:employee.email}]"> <!--  [routerLink]="['/list',{id:employee.id}]" -->
       Back to List
     </a>
     <button class="btn btn-primary pull-right" (click)="viewNextEmployee()">
