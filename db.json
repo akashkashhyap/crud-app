@@ -1,0 +1,49 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": "Mark",
+      "gender": "Male",
+      "contactPreference": "Email",
+      "email": "mark@pragimtech.com",
+      "dateOfBirth": "10/25/1988",
+      "department": "IT",
+      "isActive": true,
+      "photoPath": "assets/images/mark.png"
+    },
+    {
+      "id": 2,
+      "name": "Mary",
+      "gender": "Female",
+      "contactPreference": "Phone",
+      "phoneNumber": 2345978640,
+      "dateOfBirth": "11/20/1979",
+      "department": "HR",
+      "isActive": true,
+      "photoPath": "assets/images/mary.png"
+    },
+    {
+      "id": 3,
+      "name": "John",
+      "gender": "Male",
+      "contactPreference": "Phone",
+      "phoneNumber": 5432978640,
+      "dateOfBirth": "3/25/1976",
+      "department": "IT",
+      "isActive": false,
+      "photoPath": "assets/images/john.png"
+    },
+    {
+      "id": 4,
+      "name": "Kabir Singh",
+      "gender": "Male",
+      "email": "k@singh",
+      "phoneNumber": "09748174422",
+      "contactPreference": "Phone",
+      "dateOfBirth": "2019-10-01T18:30:00.000Z",
+      "department": "2",
+      "isActive": true,
+      "photoPath": "assets/images/john.png"
+    }
+  ]
+}

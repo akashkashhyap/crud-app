@@ -1,6 +1,15 @@
 <div class="form-group">
-  <input type="text" class="form-control" placeholder="Search By Name" [(ngModel)]="searchTerm" />
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search By Name"
+    [(ngModel)]="searchTerm"
+  />
 </div>
 <div *ngFor="let employee of filteredEmployees">
-   <app-display-employee [employee]="employee"> </app-display-employee> 
+  <app-display-employee
+    [employee]="employee"
+    (notifyDelete)="onDeleteNotification($event)"
+  >
+  </app-display-employee>
 </div>

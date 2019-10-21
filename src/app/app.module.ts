@@ -10,10 +10,12 @@ import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DisplayEmployeeComponent } from "./employees/display-employee.component";
 import { CreateEmployeeCanDeactivateGuardService } from "./employees/create-employee-can-deactivate.service";
-import { EmployeeDetailsComponent } from './employees/employee-details.component';
-import {EmployeeFilterPipe } from './employees/employee-filter.pipe';
-import { PageNotFoundComponent } from './page-not-found.component';
-import { EmployeeDetailsGuardService } from './employees/employee-details-guard.service';
+import { EmployeeDetailsComponent } from "./employees/employee-details.component";
+import { EmployeeFilterPipe } from "./employees/employee-filter.pipe";
+import { PageNotFoundComponent } from "./page-not-found.component";
+import { EmployeeDetailsGuardService } from "./employees/employee-details-guard.service";
+import { HttpClientModule } from "@angular/common/http";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,8 +32,13 @@ import { EmployeeDetailsGuardService } from './employees/employee-details-guard.
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [EmployeeService, CreateEmployeeCanDeactivateGuardService,EmployeeDetailsGuardService],
+  providers: [
+    EmployeeService,
+    CreateEmployeeCanDeactivateGuardService,
+    EmployeeDetailsGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

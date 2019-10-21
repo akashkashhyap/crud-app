@@ -1,8 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Employee } from "./../model/employee.model";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/observable/of";
+import "rxjs/add/operator/delay";
+import { map } from "rxjs/operators";
 
 @Injectable()
 export class EmployeeService {
+  constructor(private httpClient: HttpClient) {}
   private listEmployees: Employee[] = [
     {
       id: 1,
@@ -39,22 +45,46 @@ export class EmployeeService {
     }
   ];
 
-  getEmployees(): Employee[] {
-    return this.listEmployees;
+  baseUrl = "http://localhost:3000/employees";
+  getEmployees(): Observable<Employee[]> {
+    return this.httpClient.get<Employee[]>(this.baseUrl);
   }
   getEmployee(id: number): Employee {
     return this.listEmployees.find(e => e.id === id);
   }
-  save(employee: Employee) {
-    if(employee.id == null){
-      const maxId = this.listEmployees.reduce(function(e1,e2){
-          return (e1.id > e2.id) ? e1:e2;
-      }).id;
-      employee.id = maxId + 1;
-      this.listEmployees.push(employee);
-    } else{
-      const foundIndex = this.listEmployees.findIndex(e=>e.id === employee.id);
+  save(employee: Employee): Observable<Employee> {
+    if (employee.id == null) {
+      return this.httpClient.post<Employee>(this.baseUrl, employee, {
+        headers: new HttpHeaders({
+          "Content-type": "application/json"
+        })
+      });
+    } else {
+      const foundIndex = this.listEmployees.findIndex(
+        e => e.id === employee.id
+      );
       this.listEmployees[foundIndex] = employee;
+    }
+  }
+
+  updateEmployee(employee: Employee): Observable<void> {
+    if (employee.id == null) {
+      return this.httpClient.post<void>(
+        `${this.baseUrl}/${employee.id}`,
+        employee,
+        {
+          headers: new HttpHeaders({
+            "Content-type": "application/json"
+          })
+        }
+      );
+    }
+  }
+
+  deleteEmployee(id: number) {
+    const i = this.listEmployees.findIndex(e => e.id === id);
+    if (i !== -1) {
+      this.listEmployees.splice(i, 1);
     }
   }
 }

@@ -13,7 +13,7 @@ import { Employee } from "./../model/employee.model";
 export class CreateEmployeesComponent implements OnInit {
   @ViewChild("employeeForm", { static: false })
   public createEmployeeForm: NgForm;
-  panelTitle:string;
+  panelTitle: string;
   employee: Employee = {
     id: null,
     name: null,
@@ -40,37 +40,44 @@ export class CreateEmployeesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._route.paramMap.subscribe(parameterMap=>{
-      const id = +parameterMap.get('id');
+    this._route.paramMap.subscribe(parameterMap => {
+      const id = +parameterMap.get("id");
       this.getEmployee(id);
-    })
+    });
   }
-   
-  private getEmployee(id:number){
-      if(id===0){
-        this.employee = {
-          id: null,
-          name: null,
-          gender: null,
-          email: "",
-          phoneNumber: null,
-          contactPreference: null,
-          dateOfBirth: null,
-          department: "select",
-          isActive: null,
-          photoPath: null
-        };
-        this.panelTitle = 'Create Employee';
-        this.createEmployeeForm.reset();
-      } else{
-        this.panelTitle = 'Edit Employee';
-        this.employee = Object.assign({},this._employeeService.getEmployee(id));
-      }
+
+  private getEmployee(id: number) {
+    if (id === 0) {
+      this.employee = {
+        id: null,
+        name: null,
+        gender: null,
+        email: "",
+        phoneNumber: null,
+        contactPreference: null,
+        dateOfBirth: null,
+        department: "select",
+        isActive: null,
+        photoPath: null
+      };
+      this.panelTitle = "Create Employee";
+      this.createEmployeeForm.reset();
+    } else {
+      this.panelTitle = "Edit Employee";
+      this.employee = Object.assign({}, this._employeeService.getEmployee(id));
+    }
   }
   saveEmployee(): void {
-    const newEmployee: Employee = Object.assign({}, this.employee)
-    this._employeeService.save(newEmployee);
-    this.createEmployeeForm.reset();
-    this._router.navigate(["list"]);
+    // const newEmployee: Employee = Object.assign({}, this.employee);
+    this._employeeService.save(this.employee).subscribe(
+      (data: Employee) => {
+        console.log(data);
+        this.createEmployeeForm.reset();
+        this._router.navigate(["list"]);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }
