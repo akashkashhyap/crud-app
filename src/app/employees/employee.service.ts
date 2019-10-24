@@ -49,14 +49,20 @@ export class EmployeeService {
   baseUrl = 'https://nodeapis101.herokuapp.com/api/v1';
   
   
-  getEmployees(): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrl}/crudapp/users`);
+  getEmployees(value?: String): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}/crudapp/users${value ? '?search=' + value : ''}`);
   }
   getEmployee(_id: any): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}/crudapp/user/${_id}`);
   }
-  save(employee: Employee): Observable<Employee> {
-    if (employee.id == null) {
+
+  save(employee: Employee): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}/crudapp/user`, employee, {
+      headers: new HttpHeaders({
+        "Content-type": "application/json"
+      })
+    });
+    /* if (employee.id == null) {
       return this.httpClient.post<Employee>(this.baseUrl, employee, {
         headers: new HttpHeaders({
           "Content-type": "application/json"
@@ -67,7 +73,7 @@ export class EmployeeService {
         e => e.id === employee.id
       );
       this.listEmployees[foundIndex] = employee;
-    }
+    } */
   }
 
   updateEmployee(employee: Employee): Observable<void> {
@@ -89,5 +95,9 @@ export class EmployeeService {
     if (i !== -1) {
       this.listEmployees.splice(i, 1);
     }
+  }
+
+  nextEmployee(value?: string, skip?: number, limit: number = 1) {
+    return this.httpClient.get<any>(`${this.baseUrl}/crudapp/users?search=${value}&skip=${skip + 1}&limit=${limit}`);
   }
 }

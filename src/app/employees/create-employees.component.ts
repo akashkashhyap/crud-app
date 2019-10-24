@@ -15,7 +15,7 @@ export class CreateEmployeesComponent implements OnInit {
   public createEmployeeForm: NgForm;
   panelTitle: string;
   employee: Employee = {
-    id: null,
+    id: 0,
     name: null,
     gender: null,
     email: "",
@@ -69,8 +69,9 @@ export class CreateEmployeesComponent implements OnInit {
     }
   }
   saveEmployee(): void {
-    // const newEmployee: Employee = Object.assign({}, this.employee);
-    this._employeeService.save(this.employee).subscribe(
+    const newEmployee: Employee = Object.assign({}, this.employee, {id: 0});
+    console.log(newEmployee);
+    this._employeeService.save(newEmployee).subscribe(
       (data: Employee) => {
         console.log(data);
         this.createEmployeeForm.reset();

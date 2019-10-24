@@ -3,6 +3,8 @@ import { Employee } from "./../model/employee.model";
 import { EmployeeService } from "./employee.service";
 import { Router } from "@angular/router";
 
+import { StoreService } from '../services/store.service';
+
 @Component({
   selector: "app-list-employees",
   templateUrl: "./list-employees.component.html",
@@ -11,20 +13,25 @@ import { Router } from "@angular/router";
 export class ListEmployeesComponent implements OnInit {
   employees: Employee[];
   filteredEmployees: Employee[];
-  private _searchTerm: string;
+  public _searchTerm: string;
 
   get searchTerm(): string {
     return this._searchTerm;
   }
 
   set searchTerm(value: string) {
-    this._searchTerm = value;
-    this.filteredEmployees = this.filterEmployees(value);
+    this._searchTerm = this.store.searchKey = value;
+
+    this._employeeService.getEmployees(value).subscribe(empList => {
+      this.employees = empList.data;
+      this.filteredEmployees = this.employees;
+    });
   }
 
   constructor(
     private _employeeService: EmployeeService,
-    private _router: Router
+    private _router: Router,
+    private store: StoreService
   ) {}
 
   ngOnInit() {
@@ -33,13 +40,6 @@ export class ListEmployeesComponent implements OnInit {
       this.employees = empList.data;
       this.filteredEmployees = this.employees;
     });
-  }
-
-  filterEmployees(searchString: string) {
-    return this.employees.filter(
-      employee =>
-        employee.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
-    );
   }
 
   onDeleteNotification(id: number) {

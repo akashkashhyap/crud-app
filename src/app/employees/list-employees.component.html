@@ -6,8 +6,9 @@
     [(ngModel)]="searchTerm"
   />
 </div>
-<div *ngFor="let employee of filteredEmployees">
+<div *ngFor="let employee of filteredEmployees; index as i;">
   <app-display-employee
+    [index]="i"
     [employee]="employee"
     (notifyDelete)="onDeleteNotification($event)"
   >
