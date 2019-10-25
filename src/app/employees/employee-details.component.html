@@ -57,7 +57,7 @@
     <a class="btn btn-primary" [routerLink]="['/list',{id:employee?.email}]"> <!--  [routerLink]="['/list',{id:employee.id}]" -->
       Back to List
     </a>
-    <button class="btn btn-primary pull-right" (click)="viewNextEmployee()">
+    <button *ngIf="showNextBtn" class="btn btn-primary pull-right" (click)="viewNextEmployee()">
       Next Employee
     </button>
   </div>

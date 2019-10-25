@@ -22,8 +22,9 @@ export class ListEmployeesComponent implements OnInit {
   set searchTerm(value: string) {
     this._searchTerm = this.store.searchKey = value;
 
-    this._employeeService.getEmployees(value).subscribe(empList => {
+    this._employeeService.getEmployees(value).subscribe((empList: any) => {
       this.employees = empList.data;
+      this.store.available = empList.available;
       this.filteredEmployees = this.employees;
     });
   }
@@ -35,9 +36,10 @@ export class ListEmployeesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._employeeService.getEmployees().subscribe(empList => {
+    this._employeeService.getEmployees().subscribe((empList: any) => {
       // console.log(empList);
       this.employees = empList.data;
+      this.store.available = empList.available;
       this.filteredEmployees = this.employees;
     });
   }

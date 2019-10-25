@@ -17,6 +17,8 @@ export class EmployeeDetailsComponent implements OnInit {
   private index: any;
   private length: any;
 
+  public showNextBtn: boolean;
+
   constructor(
     private _route: ActivatedRoute,
     private _employeeService: EmployeeService,
@@ -30,11 +32,10 @@ export class EmployeeDetailsComponent implements OnInit {
       this.length = +params.get("length");
 
       let email = params.get("id");
-      // debugger;
       let l: any = await this._employeeService.getEmployee(email).toPromise();
       this.employee = l.data;
 
-      // console.log(l);
+      this.showNextBtn = this.store.available - this.store.eIndex > 1;
     });
   }
 

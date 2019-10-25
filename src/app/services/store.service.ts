@@ -9,6 +9,8 @@ export class StoreService {
 
   public eIndex: number;
 
+  public available: number;
+
   constructor() {
     this.searchKey = '';
 
