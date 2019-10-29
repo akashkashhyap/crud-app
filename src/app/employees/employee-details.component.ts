@@ -18,6 +18,7 @@ export class EmployeeDetailsComponent implements OnInit {
   private length: any;
 
   public showNextBtn: boolean;
+  public showPrevBtn: boolean;
 
   constructor(
     private _route: ActivatedRoute,
@@ -36,22 +37,24 @@ export class EmployeeDetailsComponent implements OnInit {
       this.employee = l.data;
 
       this.showNextBtn = this.store.available - this.store.eIndex > 1;
+      this.showPrevBtn = this.store.eIndex > 0;
     });
   }
 
   async viewNextEmployee() {
-    // if (this._id < 3) {
-    //   this._id = this._id + 1;
-    // } else {
-    //   this._id = 1;
-    // }
-    // this._router.navigate(["/employee", this._id]);
-
     let r: any = await this._employeeService.nextEmployee(this.store.searchKey, this.store.eIndex).toPromise();
 
     if(!r) {return;}
 
     this.store.eIndex += 1;
+    this._router.navigate(["/employee", r.data[0].email]);
+  }
+  async viewPrevEmployee() {
+    let r: any = await this._employeeService.prevEmployee(this.store.searchKey, this.store.eIndex).toPromise();
+
+    if(!r) {return;}
+
+    this.store.eIndex -= 1;
     this._router.navigate(["/employee", r.data[0].email]);
   }
 }

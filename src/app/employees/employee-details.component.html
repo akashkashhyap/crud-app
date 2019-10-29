@@ -53,10 +53,10 @@
       </div>
     </div>
   </div>
-  <div class="panel-footer">
-    <a class="btn btn-primary" [routerLink]="['/list',{id:employee?.email}]"> <!--  [routerLink]="['/list',{id:employee.id}]" -->
-      Back to List
-    </a>
+  <div class="panel-footer clearfix">
+    <button *ngIf="showPrevBtn" class="btn btn-primary" (click)="viewPrevEmployee()">
+      Previous Employee
+    </button>
     <button *ngIf="showNextBtn" class="btn btn-primary pull-right" (click)="viewNextEmployee()">
       Next Employee
     </button>

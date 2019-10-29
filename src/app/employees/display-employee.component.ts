@@ -39,7 +39,8 @@ export class DisplayEmployeeComponent implements OnInit {
     this._router.navigate(["/edit", this.employee.id]);
   }
   deleteEmployee() {
-    this._employeeService.deleteEmployee(this.employee.id);
+    this._employeeService.deleteEmployee(this.employee.email).subscribe();
     this.notifyDelete.emit(this.employee.id);
   }
 }
+  

@@ -61,7 +61,7 @@ export class CreateEmployeesComponent implements OnInit {
         photoPath: null
       };
       this.panelTitle = "Create Employee";
-      this.createEmployeeForm.reset();
+      // this.createEmployeeForm.reset();
     } else {
       this.panelTitle = "Edit Employee";
       let r = await this._employeeService.getEmployee(id).toPromise();
@@ -69,17 +69,28 @@ export class CreateEmployeesComponent implements OnInit {
     }
   }
   saveEmployee(): void {
-    const newEmployee: Employee = Object.assign({}, this.employee, {id: 0});
-    console.log(newEmployee);
-    this._employeeService.save(newEmployee).subscribe(
-      (data: Employee) => {
-        console.log(data);
-        this.createEmployeeForm.reset();
-        this._router.navigate(["list"]);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    if(this.employee._id ==null){
+      const newEmployee: Employee = Object.assign({}, this.employee, {id: 0});
+      this._employeeService.addEmployee(newEmployee).subscribe(
+        (data: Employee) => {
+          this.createEmployeeForm.reset();
+          this._router.navigate(["list"]);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    } else {
+      this._employeeService.addEmployee(this.employee).subscribe(
+        (data: Employee) => {
+          this.createEmployeeForm.reset();
+          this._router.navigate(["list"]);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    }
+    
   }
 }

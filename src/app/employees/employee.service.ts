@@ -56,29 +56,16 @@ export class EmployeeService {
     return this.httpClient.get<any>(`${this.baseUrl}/crudapp/user/${_id}`);
   }
 
-  save(employee: Employee): Observable<any> {
+  addEmployee(employee: Employee): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/crudapp/user`, employee, {
       headers: new HttpHeaders({
         "Content-type": "application/json"
       })
     });
-    /* if (employee.id == null) {
-      return this.httpClient.post<Employee>(this.baseUrl, employee, {
-        headers: new HttpHeaders({
-          "Content-type": "application/json"
-        })
-      });
-    } else {
-      const foundIndex = this.listEmployees.findIndex(
-        e => e.id === employee.id
-      );
-      this.listEmployees[foundIndex] = employee;
-    } */
   }
 
   updateEmployee(employee: Employee): Observable<void> {
-    if (employee.id == null) {
-      return this.httpClient.post<void>(
+      return this.httpClient.put<void>(
         `${this.baseUrl}/${employee.id}`,
         employee,
         {
@@ -87,17 +74,16 @@ export class EmployeeService {
           })
         }
       );
-    }
+   
   }
-
-  deleteEmployee(id: number) {
-    const i = this.listEmployees.findIndex(e => e.id === id);
-    if (i !== -1) {
-      this.listEmployees.splice(i, 1);
-    }
+  deleteEmployee(_id: any): Observable<any> {
+    return this.httpClient.delete<any>(`${this.baseUrl}/crudapp/user/${_id}`);
   }
-
+  
   nextEmployee(value?: string, skip?: number, limit: number = 1) {
     return this.httpClient.get<any>(`${this.baseUrl}/crudapp/users?search=${value}&skip=${skip + 1}&limit=${limit}`);
+  }
+  prevEmployee(value?: string, skip?: number, limit: number = 1) {
+    return this.httpClient.get<any>(`${this.baseUrl}/crudapp/users?search=${value}&skip=${skip - 1}&limit=${limit}`);
   }
 }

@@ -10,7 +10,7 @@
   <app-display-employee
     [index]="i"
     [employee]="employee"
-    (notifyDelete)="onDeleteNotification($event)"
+    (notifyDelete)="onDeleteNotification(employee._id)"
   >
   </app-display-employee>
 </div>
