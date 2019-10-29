@@ -69,9 +69,9 @@ export class CreateEmployeesComponent implements OnInit {
     }
   }
   saveEmployee(): void {
-    if(this.employee._id ==null){
+    // if(this.employee.id == null){
       const newEmployee: Employee = Object.assign({}, this.employee, {id: 0});
-      this._employeeService.addEmployee(newEmployee).subscribe(
+      this._employeeService.save(newEmployee).subscribe(
         (data: Employee) => {
           this.createEmployeeForm.reset();
           this._router.navigate(["list"]);
@@ -80,17 +80,17 @@ export class CreateEmployeesComponent implements OnInit {
           console.log(error);
         }
       );
-    } else {
-      this._employeeService.addEmployee(this.employee).subscribe(
-        (data: Employee) => {
-          this.createEmployeeForm.reset();
-          this._router.navigate(["list"]);
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
-    }
+    // } else {
+    //   this._employeeService.updateEmployee(this.employee).subscribe(
+    //     () => {
+    //       this.createEmployeeForm.reset();
+    //       this._router.navigate(["list"]);
+    //     },
+    //     (error: any) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // }
     
   }
 }

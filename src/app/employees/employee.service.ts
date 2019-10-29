@@ -56,7 +56,7 @@ export class EmployeeService {
     return this.httpClient.get<any>(`${this.baseUrl}/crudapp/user/${_id}`);
   }
 
-  addEmployee(employee: Employee): Observable<any> {
+  save(employee: Employee): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/crudapp/user`, employee, {
       headers: new HttpHeaders({
         "Content-type": "application/json"
