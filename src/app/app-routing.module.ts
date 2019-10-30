@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { ListEmployeesComponent } from "./employees/list-employees.component";
 import { CreateEmployeesComponent } from "./employees/create-employees.component";
+import { EditEmployeeComponent } from './employees/edit-employee/edit-employee.component';
 import { CreateEmployeeCanDeactivateGuardService } from "./employees/create-employee-can-deactivate.service";
 import { EmployeeDetailsComponent } from "./employees/employee-details.component";
 import { PageNotFoundComponent } from './page-not-found.component';
@@ -10,9 +11,14 @@ import {EmployeeDetailsGuardService} from './employees/employee-details-guard.se
 const routes: Routes = [
   { path: "list", component: ListEmployeesComponent },
   {
-    path: "edit/:id",
+    path: "create/:id",
     component: CreateEmployeesComponent,
     canDeactivate: [CreateEmployeeCanDeactivateGuardService]
+  },
+  {
+    path: "edit/:email",
+    component: EditEmployeeComponent,
+    // canDeactivate: [CreateEmployeeCanDeactivateGuardService]
   },
   { path: "employee/:id", component: EmployeeDetailsComponent,
     // canActivate: [EmployeeDetailsGuardService] 

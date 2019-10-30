@@ -15,6 +15,7 @@ import { EmployeeFilterPipe } from "./employees/employee-filter.pipe";
 import { PageNotFoundComponent } from "./page-not-found.component";
 import { EmployeeDetailsGuardService } from "./employees/employee-details-guard.service";
 import { HttpClientModule } from "@angular/common/http";
+import { EditEmployeeComponent } from './employees/edit-employee/edit-employee.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HttpClientModule } from "@angular/common/http";
     DisplayEmployeeComponent,
     EmployeeDetailsComponent,
     EmployeeFilterPipe,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    EditEmployeeComponent
   ],
   imports: [
     BrowserModule,

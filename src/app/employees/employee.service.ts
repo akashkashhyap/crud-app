@@ -50,7 +50,7 @@ export class EmployeeService {
   
   
   getEmployees(value?: String): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrl}/crudapp/users${value ? '?search=' + value : ''}`);
+    return this.httpClient.get<any>(`${this.baseUrl}/crudapp/users?limit=50${value ? '&search=' + value : ''}`);
   }
   getEmployee(_id: any): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}/crudapp/user/${_id}`);
@@ -66,7 +66,7 @@ export class EmployeeService {
 
   updateEmployee(employee: Employee): Observable<void> {
       return this.httpClient.put<void>(
-        `${this.baseUrl}/${employee.id}`,
+        `${this.baseUrl}/crudapp/user/${employee.email}`,
         employee,
         {
           headers: new HttpHeaders({
