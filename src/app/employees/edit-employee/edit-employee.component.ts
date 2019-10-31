@@ -13,6 +13,7 @@ import { Employee } from "../../model/employee.model";
 export class EditEmployeeComponent implements OnInit {
   @ViewChild("employeeForm", { static: false })
   public createEmployeeForm: NgForm;
+  @ViewChild('dropFile', { static: false }) file: any;
   panelTitle: string;
   employee: Employee = {
     id: 0,
@@ -64,31 +65,41 @@ export class EditEmployeeComponent implements OnInit {
       let r = await this._employeeService.getEmployee(email).toPromise();
       this.employee = Object.assign({}, r.data);
   }
+  // editEmployee(): void {
+  //     delete this.employee._id;
+  //     const newEmployee: Employee = Object.assign({}, this.employee);
+  //     this._employeeService.updateEmployee(newEmployee).subscribe(
+  //       () => {
+  //         // this.createEmployeeForm.reset();
+  //         // this._router.navigate(["list"]);
+  //       },
+  //       (error: any) => {
+  //         console.log(error);
+  //       }
+  //     );    
+  // }
   editEmployee(): void {
-    // if(this.employee.id == null){
       delete this.employee._id;
       const newEmployee: Employee = Object.assign({}, this.employee);
-      this._employeeService.updateEmployee(newEmployee).subscribe(
+
+      let form = new FormData();
+ 
+      Object.keys(newEmployee).forEach(function(item){
+           form.append(item,newEmployee[item]);
+      });
+
+      if(this.file.nativeElement['files'].length){
+        form.append('photoPath', this.file.nativeElement['files'][0])
+      }
+      this._employeeService.updateEmployee(newEmployee.email, form).subscribe(
         () => {
           // this.createEmployeeForm.reset();
-          // this._router.navigate(["list"]);
+           this._router.navigate(["list"]);
         },
         (error: any) => {
           console.log(error);
         }
-      );
-    // } else {
-    //   this._employeeService.updateEmployee(this.employee).subscribe(
-    //     () => {
-    //       this.createEmployeeForm.reset();
-    //       this._router.navigate(["list"]);
-    //     },
-    //     (error: any) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // }
-    
+      );    
   }
 }
 

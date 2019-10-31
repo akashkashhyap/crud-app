@@ -124,13 +124,15 @@
         </div>
         <div class="form-group">
           <label for="photoPath">Photo Path</label>
-          <input
+          <!-- <input
             id="photoPath"
             type="text"
             class="form-control"
             name="photoPath"
             [(ngModel)]="employee.photoPath"
-          />
+            #dropFile
+          /> -->
+          <input type="file" #dropFile />
         </div>
       </div>
   

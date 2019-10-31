@@ -13,6 +13,9 @@ import { Employee } from "./../model/employee.model";
 export class CreateEmployeesComponent implements OnInit {
   @ViewChild("employeeForm", { static: false })
   public createEmployeeForm: NgForm;
+
+  @ViewChild('dropFile', { static: false }) file: any;
+
   panelTitle: string;
   employee: Employee = {
     id: 0,
@@ -69,28 +72,30 @@ export class CreateEmployeesComponent implements OnInit {
     }
   }
   saveEmployee(): void {
-    // if(this.employee.id == null){
-      const newEmployee: Employee = Object.assign({}, this.employee, {id: 0});
-      this._employeeService.save(newEmployee).subscribe(
-        (data: Employee) => {
-          this.createEmployeeForm.reset();
-          this._router.navigate(["list"]);
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
-    // } else {
-    //   this._employeeService.updateEmployee(this.employee).subscribe(
-    //     () => {
-    //       this.createEmployeeForm.reset();
-    //       this._router.navigate(["list"]);
-    //     },
-    //     (error: any) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // }
+    const newEmployee: Employee = Object.assign({}, this.employee);
+
+    let form = new FormData();
+
+
+    Object.keys(newEmployee).forEach(function(item) {
+      form.append(item, newEmployee[item]);
+    });
+
+    if(this.file.nativeElement['files'].length) {
+      form.append('photoPath', this.file.nativeElement['files'][0]); 
+    }
+
+    this._employeeService.saveWithFile(form).subscribe(
+      (data: any) => {
+        this.createEmployeeForm.reset();
+        this._router.navigate(["list"]);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
     
   }
+
+
 }

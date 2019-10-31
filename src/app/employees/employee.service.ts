@@ -64,17 +64,35 @@ export class EmployeeService {
     });
   }
 
-  updateEmployee(employee: Employee): Observable<void> {
+  saveWithFile(form: FormData): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}/crudapp/user`, form, {
+      headers: new HttpHeaders({
+        'enctype': 'multipart/form-data'
+      })
+    });
+  }
+
+  // updateEmployee(employee: Employee): Observable<void> {
+  //     return this.httpClient.put<void>(
+  //       `${this.baseUrl}/crudapp/user/${employee.email}`,
+  //       employee,
+  //       {
+  //         headers: new HttpHeaders({
+  //           "Content-type": "application/json"
+  //         })
+  //       }
+  //     );
+  // }
+  updateEmployee(email: string, form: FormData): Observable<void> {
       return this.httpClient.put<void>(
-        `${this.baseUrl}/crudapp/user/${employee.email}`,
-        employee,
+        `${this.baseUrl}/crudapp/user/${email}`,
+        form,
         {
           headers: new HttpHeaders({
-            "Content-type": "application/json"
+            'enctype': 'multipart/form-data'
           })
         }
       );
-   
   }
   deleteEmployee(_id: any): Observable<any> {
     return this.httpClient.delete<any>(`${this.baseUrl}/crudapp/user/${_id}`);
