@@ -33,7 +33,9 @@ export class ListEmployeesComponent implements OnInit {
     private _employeeService: EmployeeService,
     private _router: Router,
     private store: StoreService
-  ) {}
+  ) {
+    this.store.searchKey = '';
+  }
 
   ngOnInit() {
     this._employeeService.getEmployees().subscribe((empList: any) => {
